@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)https://wiki.linuxfoundation.org/networking/netem -->
+<html lang="en" dir="ltr" class="js desktop"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>networking:netem [Linux Foundation Wiki]</title>
+    <script async="" src="./networking_netem [Linux Foundation Wiki]_files/analytics.js"></script><script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
+    <meta name="generator" content="DokuWiki">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="networking,netem">
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.linuxfoundation.org/lib/exe/opensearch.php" title="Linux Foundation Wiki">
+<link rel="start" href="https://wiki.linuxfoundation.org/">
+<link rel="contents" href="https://wiki.linuxfoundation.org/networking/netem?do=index" title="Sitemap">
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="https://wiki.linuxfoundation.org/feed.php">
+<link rel="alternate" type="application/rss+xml" title="Current namespace" href="https://wiki.linuxfoundation.org/feed.php?mode=list&amp;ns=networking">
+<link rel="alternate" type="text/html" title="Plain HTML" href="https://wiki.linuxfoundation.org/_export/xhtml/networking/netem">
+<link rel="alternate" type="text/plain" title="Wiki Markup" href="https://wiki.linuxfoundation.org/_export/raw/networking/netem">
+<link rel="canonical" href="https://wiki.linuxfoundation.org/networking/netem">
+<link rel="stylesheet" type="text/css" href="./networking_netem [Linux Foundation Wiki]_files/css.php">
+<script type="text/javascript">/*<![CDATA[*/var NS='networking';var JSINFO = {"id":"networking:netem","namespace":"networking","move_renameokay":false};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="./networking_netem [Linux Foundation Wiki]_files/js.php"></script><style id="iris-css">.iris-picker{display:block;position:relative}.iris-picker,.iris-picker *{-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input+.iris-picker{margin-top:4px}.iris-error{background-color:#ffafaf}.iris-border{border-radius:3px;border:1px solid #aaa;width:200px;background-color:#fff}.iris-picker-inner{position:absolute;top:0;right:0;left:0;bottom:0}.iris-border .iris-picker-inner{top:10px;right:10px;left:10px;bottom:10px}.iris-picker .iris-square-inner{position:absolute;left:0;right:0;top:0;bottom:0}.iris-picker .iris-square,.iris-picker .iris-slider,.iris-picker .iris-square-inner,.iris-picker .iris-palette{border-radius:3px;box-shadow:inset 0 0 5px rgba(0,0,0,.4);height:100%;width:12.5%;float:left;margin-right:5%}.iris-picker .iris-square{width:76%;margin-right:10%;position:relative}.iris-picker .iris-square-inner{width:auto;margin:0}.iris-ie-9 .iris-square,.iris-ie-9 .iris-slider,.iris-ie-9 .iris-square-inner,.iris-ie-9 .iris-palette{box-shadow:none;border-radius:0}.iris-ie-9 .iris-square,.iris-ie-9 .iris-slider,.iris-ie-9 .iris-palette{outline:1px solid rgba(0,0,0,.1)}.iris-ie-lt9 .iris-square,.iris-ie-lt9 .iris-slider,.iris-ie-lt9 .iris-square-inner,.iris-ie-lt9 .iris-palette{outline:1px solid #aaa}.iris-ie-lt9 .iris-square .ui-slider-handle{outline:1px solid #aaa;background-color:#fff;-ms-filter:"alpha(Opacity=30)"}.iris-ie-lt9 .iris-square .iris-square-handle{background:0;border:3px solid #fff;-ms-filter:"alpha(Opacity=50)"}.iris-picker .iris-strip{margin-right:0;position:relative}.iris-picker .iris-strip .ui-slider-handle{position:absolute;background:0;margin:0;right:-3px;left:-3px;border:4px solid #aaa;border-width:4px 3px;width:auto;height:6px;border-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.2);opacity:.9;z-index:5;cursor:ns-resize}.iris-strip .ui-slider-handle:before{content:" ";position:absolute;left:-2px;right:-2px;top:-3px;bottom:-3px;border:2px solid #fff;border-radius:3px}.iris-picker .iris-slider-offset{position:absolute;top:11px;left:0;right:0;bottom:-3px;width:auto;height:auto;background:transparent;border:0;border-radius:0}.iris-picker .iris-square-handle{background:transparent;border:5px solid #aaa;border-radius:50%;border-color:rgba(128,128,128,.5);box-shadow:none;width:12px;height:12px;position:absolute;left:-10px;top:-10px;cursor:move;opacity:1;z-index:10}.iris-picker .ui-state-focus .iris-square-handle{opacity:.8}.iris-picker .iris-square-handle:hover{border-color:#999}.iris-picker .iris-square-value:focus .iris-square-handle{box-shadow:0 0 2px rgba(0,0,0,.75);opacity:.8}.iris-picker .iris-square-handle:hover::after{border-color:#fff}.iris-picker .iris-square-handle::after{position:absolute;bottom:-4px;right:-4px;left:-4px;top:-4px;border:3px solid #f9f9f9;border-color:rgba(255,255,255,.8);border-radius:50%;content:" "}.iris-picker .iris-square-value{width:8px;height:8px;position:absolute}.iris-ie-lt9 .iris-square-value,.iris-mozilla .iris-square-value{width:1px;height:1px}.iris-palette-container{position:absolute;bottom:0;left:0;margin:0;padding:0}.iris-border .iris-palette-container{left:10px;bottom:10px}.iris-picker .iris-palette{margin:0;cursor:pointer}.iris-square-handle,.ui-slider-handle{border:0;outline:0}</style>
+<script type="text/javascript">/*<![CDATA[*/(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-831873-54');ga('send', 'pageview');
+/*!]]>*/</script>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="shortcut icon" href="https://wiki.linuxfoundation.org/lib/tpl/dokuwiki/images/favicon.ico">
+<link rel="apple-touch-icon" href="https://wiki.linuxfoundation.org/lib/tpl/dokuwiki/images/apple-touch-icon.png">
+    </head>
+
+<body>
+    <div id="dokuwiki__site"><div id="dokuwiki__top" class="site dokuwiki mode_show tpl_dokuwiki     ">
+
+        
+<!-- ********** HEADER ********** -->
+<div id="dokuwiki__header"><div class="pad group">
+
+    
+    <div class="headings group">
+        <ul class="a11y skip">
+            <li><a href="https://wiki.linuxfoundation.org/networking/netem#dokuwiki__content">skip to content</a></li>
+        </ul>
+
+        <h1><a href="https://wiki.linuxfoundation.org/start" accesskey="h" title="[H]"><img src="./networking_netem [Linux Foundation Wiki]_files/logo.png" width="200" height="64" alt=""> <span>Linux Foundation Wiki</span></a></h1>
+                    <p class="claim">project collaboration site</p>
+            </div>
+
+    <div class="tools group">
+        <!-- USER TOOLS -->
+                    <div id="dokuwiki__usertools">
+                <h3 class="a11y">User Tools</h3>
+                <ul>
+                    <li><a href="https://wiki.linuxfoundation.org/networking/netem?do=login&amp;sectok=a33d67d69447793b4290bcbab054c271" class="action login" rel="nofollow" title="Login / Register">Login / Register</a></li>                </ul>
+            </div>
+        
+        <!-- SITE TOOLS -->
+        <div id="dokuwiki__sitetools">
+            <h3 class="a11y">Site Tools</h3>
+            <form action="https://wiki.linuxfoundation.org/start" accept-charset="utf-8" class="search" id="dw__search" method="get" role="search"><div class="no"><input type="hidden" name="do" value="search"><input type="text" placeholder="Search" id="qsearch__in" accesskey="f" name="id" class="edit" title="[F]"><button type="submit" title="Search">Search</button><div id="qsearch__out" class="ajax_qsearch JSpopup" style="display: none;"></div></div></form>            <div class="mobileTools">
+                <form action="https://wiki.linuxfoundation.org/doku.php" method="get" accept-charset="utf-8"><div class="no"><input type="hidden" name="id" value="networking:netem"><select name="do" class="edit quickselect" title="Tools"><option value="">Tools</option><optgroup label="Page Tools"><option value="edit">Show pagesource</option><option value="revisions">Old revisions</option><option value="backlink">Backlinks</option></optgroup><optgroup label="Site Tools"><option value="recent">Recent Changes</option><option value="media">Media Manager</option><option value="index">Sitemap</option></optgroup><optgroup label="User Tools"><option value="login">Login / Register</option></optgroup></select><button type="submit" style="display: none;">&gt;</button></div></form>            </div>
+            <ul>
+                <li><a href="https://wiki.linuxfoundation.org/networking/netem?do=recent" class="action recent" accesskey="r" rel="nofollow" title="Recent Changes [R]">Recent Changes</a></li><li><a href="https://wiki.linuxfoundation.org/networking/netem?do=media&amp;ns=networking" class="action media" rel="nofollow" title="Media Manager">Media Manager</a></li><li><a href="https://wiki.linuxfoundation.org/networking/netem?do=index" class="action index" accesskey="x" rel="nofollow" title="Sitemap [X]">Sitemap</a></li>            </ul>
+        </div>
+
+    </div>
+
+    <!-- BREADCRUMBS -->
+            <div class="breadcrumbs">
+                                        <div class="trace"><span class="bchead">Trace:</span> <span class="bcsep">•</span> <bdi><a href="https://wiki.linuxfoundation.org/networking/tcp_testing" class="breadcrumbs" title="networking:tcp_testing">tcp_testing</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="https://wiki.linuxfoundation.org/networking/netem" class="breadcrumbs" title="networking:netem">netem</a></bdi></span></div>
+                    </div>
+    
+
+
+    <hr class="a11y">
+</div></div><!-- /header -->
+
+        <div class="wrapper group">
+
+            
+            <!-- ********** CONTENT ********** -->
+            <div id="dokuwiki__content"><div class="pad group">
+                
+                <div class="pageId"><span>networking:netem</span></div>
+
+                <div class="page group">
+                                                            <!-- wikipage start -->
+                    <!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle open" style="cursor: pointer;"><strong><span>−</span></strong>Table of Contents</h3>
+<div aria-expanded="true">
+
+<ul class="toc" style="">
+<li class="level1"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/netem#netem">netem</a></div>
+<ul class="toc">
+<li class="level2"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/netem#contents">Contents</a></div></li>
+<li class="level2"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/netem#examples">Examples</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/netem#emulating-wide-area-network-delays">Emulating wide area network delays</a></div></li>
+<li class="level3"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/netem#delay-distribution">Delay distribution</a></div></li>
+<li class="level3"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/netem#packet-loss">Packet loss</a></div></li>
+<li class="level3"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/netem#packet-duplication">Packet duplication</a></div></li>
+<li class="level3"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/netem#packet-corruption">Packet corruption</a></div></li>
+<li class="level3"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/netem#packet-re-ordering">Packet re-ordering</a></div></li>
+<li class="level3"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/netem#rate-control">Rate control</a></div></li>
+<li class="level3"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/netem#non-fifo-queuing">Non FIFO queuing</a></div></li>
+<li class="level3"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/netem#delaying-only-some-traffic">Delaying only some traffic</a></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/netem#faq">FAQ</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/netem#how-come-first-ping-takes-longer">How come first ping takes longer?</a></div></li>
+<li class="level3"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/netem#how-come-tcp-is-so-slow-over-netem">How come TCP is so slow over netem?</a></div></li>
+<li class="level3"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/netem#how-can-i-use-netem-on-incoming-traffic">How can I use netem on incoming traffic?</a></div></li>
+<li class="level3"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/netem#how-to-reorder-packets-based-on-jitter">How to reorder packets based on jitter?</a></div></li>
+<li class="level3"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/netem#how-does-the-value-of-hz-impact-netem">How does the value of HZ impact Netem?</a></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/netem#links">Links</a></div></li>
+<li class="level2"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/netem#contact-info">Contact Info</a></div></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h1 class="sectionedit1" id="netem">netem</h1>
+<div class="level1">
+
+<p>
+<strong>netem</strong> provides <a href="http://en.wikipedia.com/wiki/Network_emulation" class="urlextern" title="http://en.wikipedia.com/wiki/Network_emulation" rel="nofollow">Network Emulation</a> functionality for testing protocols by emulating the properties of wide area networks. The current version emulates variable delay, loss, duplication and re-ordering.
+</p>
+
+<p>
+If you run a current 2.6 distribution, (<a href="http://en.wikipedia.com/wiki/Fedora_Core" class="urlextern" title="http://en.wikipedia.com/wiki/Fedora_Core" rel="nofollow">Fedora</a>, <a href="http://en.wikipedia.com/wiki/Open_Suse" class="urlextern" title="http://en.wikipedia.com/wiki/Open_Suse" rel="nofollow">OpenSuse</a>, <a href="http://en.wikipedia.com/wiki/Gentoo_Linux" class="urlextern" title="http://en.wikipedia.com/wiki/Gentoo_Linux" rel="nofollow">Gentoo</a>, <a href="http://en.wikipedia.com/wiki/Debian" class="urlextern" title="http://en.wikipedia.com/wiki/Debian" rel="nofollow">Debian</a>, <a href="http://en.wikipedia.com/wiki/Mandriva" class="urlextern" title="http://en.wikipedia.com/wiki/Mandriva" rel="nofollow">Mandriva</a>, <a href="http://en.wikipedia.com/wiki/Ubuntu_%28Linux_distribution%29" class="urlextern" title="http://en.wikipedia.com/wiki/Ubuntu_%28Linux_distribution%29" rel="nofollow">Ubuntu</a>), then netem is already enabled in the kernel and a current version of <a href="https://wiki.linuxfoundation.org/networking/iproute2" class="wikilink1" title="networking:iproute2">iproute2</a> is included. The netem kernel component is enabled under:
+</p>
+<pre class="code"> Networking --&gt;
+   Networking Options --&gt;
+     QoS and/or fair queuing --&gt;
+        Network emulator</pre>
+
+<p>
+Netem is controlled by the command line tool 'tc' which is part of the <a href="https://wiki.linuxfoundation.org/networking/iproute2" class="wikilink1" title="networking:iproute2">iproute2</a> package of tools. The tc command uses shared libraries and data files in the /usr/lib/tc directory.
+</p>
+
+</div>
+
+<h2 class="sectionedit2" id="contents">Contents</h2>
+<div class="level2">
+<ul>
+<li class="level1 node"><div class="li"> <a href="https://www.linuxfoundation.org/#Examples" class="urlextern" title="https://www.linuxfoundation.org/#Examples" rel="nofollow">1 Examples</a></div>
+<ul>
+<li class="level2"><div class="li"> <a href="https://www.linuxfoundation.org/#Emulating_wide_area_network_delays" class="urlextern" title="https://www.linuxfoundation.org/#Emulating_wide_area_network_delays" rel="nofollow">1.1 Emulating wide area network delays</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="https://www.linuxfoundation.org/#Delay_distribution" class="urlextern" title="https://www.linuxfoundation.org/#Delay_distribution" rel="nofollow">1.2 Delay distribution</a></div>
+</li>
+<li class="level2 node"><div class="li"> <a href="https://www.linuxfoundation.org/#Packet_loss" class="urlextern" title="https://www.linuxfoundation.org/#Packet_loss" rel="nofollow">1.3 Packet loss</a></div>
+<ul>
+<li class="level3"><div class="li"> <a href="https://www.linuxfoundation.org/#Caveats" class="urlextern" title="https://www.linuxfoundation.org/#Caveats" rel="nofollow">1.3.1 Caveats</a></div>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li"> <a href="https://www.linuxfoundation.org/#Packet_duplication" class="urlextern" title="https://www.linuxfoundation.org/#Packet_duplication" rel="nofollow">1.4 Packet duplication</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="https://www.linuxfoundation.org/#Packet_corruption" class="urlextern" title="https://www.linuxfoundation.org/#Packet_corruption" rel="nofollow">1.5 Packet corruption</a></div>
+</li>
+<li class="level2 node"><div class="li"> <a href="https://www.linuxfoundation.org/#Packet_re-ordering" class="urlextern" title="https://www.linuxfoundation.org/#Packet_re-ordering" rel="nofollow">1.6 Packet re-ordering</a></div>
+<ul>
+<li class="level3"><div class="li"> <a href="https://www.linuxfoundation.org/#Caveats_2" class="urlextern" title="https://www.linuxfoundation.org/#Caveats_2" rel="nofollow">1.6.1 Caveats</a></div>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li"> <a href="https://www.linuxfoundation.org/#Rate_control" class="urlextern" title="https://www.linuxfoundation.org/#Rate_control" rel="nofollow">1.7 Rate control</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="https://www.linuxfoundation.org/#Non_FIFO_queuing" class="urlextern" title="https://www.linuxfoundation.org/#Non_FIFO_queuing" rel="nofollow">1.8 Non FIFO queuing</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="https://www.linuxfoundation.org/#Delaying_only_some_traffic" class="urlextern" title="https://www.linuxfoundation.org/#Delaying_only_some_traffic" rel="nofollow">1.9 Delaying only some traffic</a></div>
+</li>
+</ul>
+</li>
+<li class="level1 node"><div class="li"> <a href="https://www.linuxfoundation.org/#FAQ" class="urlextern" title="https://www.linuxfoundation.org/#FAQ" rel="nofollow">2 FAQ</a></div>
+<ul>
+<li class="level2"><div class="li"> <a href="https://www.linuxfoundation.org/#How_come_first_ping_takes_longer.3F" class="urlextern" title="https://www.linuxfoundation.org/#How_come_first_ping_takes_longer.3F" rel="nofollow">2.1 How come first ping takes longer?</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="https://www.linuxfoundation.org/#How_come_TCP_is_so_slow_over_netem.3F" class="urlextern" title="https://www.linuxfoundation.org/#How_come_TCP_is_so_slow_over_netem.3F" rel="nofollow">2.2 How come TCP is so slow over netem?</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="https://www.linuxfoundation.org/#How_can_I_use_netem_on_incoming_traffic.3F" class="urlextern" title="https://www.linuxfoundation.org/#How_can_I_use_netem_on_incoming_traffic.3F" rel="nofollow">2.3 How can I use netem on incoming traffic?</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="https://www.linuxfoundation.org/#How_to_reorder_packets_based_on_jitter.3F" class="urlextern" title="https://www.linuxfoundation.org/#How_to_reorder_packets_based_on_jitter.3F" rel="nofollow">2.4 How to reorder packets based on jitter?</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="https://www.linuxfoundation.org/#How_does_the_value_of_HZ_impact_Netem.3F" class="urlextern" title="https://www.linuxfoundation.org/#How_does_the_value_of_HZ_impact_Netem.3F" rel="nofollow">2.5 How does the value of HZ impact Netem?</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <a href="https://www.linuxfoundation.org/#Links" class="urlextern" title="https://www.linuxfoundation.org/#Links" rel="nofollow">3 Links</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="https://www.linuxfoundation.org/#Contact_Info" class="urlextern" title="https://www.linuxfoundation.org/#Contact_Info" rel="nofollow">4 Contact Info</a></div>
+</li>
+</ul>
+
+</div>
+
+<h2 class="sectionedit3" id="examples">Examples</h2>
+<div class="level2">
+
+</div>
+
+<h3 class="sectionedit4" id="emulating-wide-area-network-delays">Emulating wide area network delays</h3>
+<div class="level3">
+
+<p>
+&nbsp;
+</p>
+
+<p>
+This is the simplest example, it just adds a fixed amount of delay to all packets going out of the local Ethernet.
+</p>
+<pre class="code"> # tc qdisc add dev eth0 root netem delay 100ms</pre>
+
+<p>
+Now a simple ping test to host on the local network should show an increase of 100 milliseconds. The delay is limited by the clock resolution of the kernel (HZ). On most 2.4 systems, the system clock runs at 100hz which allows delays in increments of 10ms. On 2.6, the value is a configuration parameter from 1000 to 100 hz.
+</p>
+
+<p>
+Later examples just change parameters without reloading the qdisc
+</p>
+
+<p>
+Real wide area networks show variability so it is possible to add random variation.
+</p>
+<pre class="code"> # tc qdisc change dev eth0 root netem delay 100ms 10ms</pre>
+
+<p>
+This causes the added delay to be 100ms ± 10ms. Network delay variation isn't purely random, so to emulate that there is a <a href="http://en.wikipedia.com/wiki/correlation" class="urlextern" title="http://en.wikipedia.com/wiki/correlation" rel="nofollow">correlation</a> value as well.
+</p>
+<pre class="code"> # tc qdisc change dev eth0 root netem delay 100ms 10ms 25%</pre>
+
+<p>
+This causes the added delay to be 100ms ± 10ms with the next random element depending 25% on the last one. This isn't true statistical <a href="http://en.wikipedia.com/wiki/correlation" class="urlextern" title="http://en.wikipedia.com/wiki/correlation" rel="nofollow">correlation</a>, but an approximation.
+</p>
+
+</div>
+
+<h3 class="sectionedit5" id="delay-distribution">Delay distribution</h3>
+<div class="level3">
+
+<p>
+&nbsp;
+</p>
+
+<p>
+Typically, the delay in a network is not uniform. It is more common to use a something like a <a href="http://en.wikipedia.com/wiki/Normal_Distribution" class="urlextern" title="http://en.wikipedia.com/wiki/Normal_Distribution" rel="nofollow">normal distribution</a> to describe the variation in delay. The netem discipline can take a table to specify a non-uniform distribution.
+</p>
+<pre class="code"> # tc qdisc change dev eth0 root netem delay 100ms 20ms distribution normal</pre>
+
+<p>
+The actual tables (normal, pareto, paretonormal) are generated as part of the <a href="https://wiki.linuxfoundation.org/networking/iproute2" class="wikilink1" title="networking:iproute2">iproute2</a> compilation and placed in /usr/lib/tc; so it is possible with some effort to make your own distribution based on experimental data.
+</p>
+
+</div>
+
+<h3 class="sectionedit6" id="packet-loss">Packet loss</h3>
+<div class="level3">
+
+<p>
+&nbsp;
+</p>
+
+<p>
+Random packet loss is specified in the 'tc' command in percent. The smallest possible non-zero value is:
+</p>
+
+<p>
+2<sup>32</sup> = 0.0000000232%
+</p>
+<pre class="code"> # tc qdisc change dev eth0 root netem loss 0.1%</pre>
+
+<p>
+This causes 1/10th of a percent (i.e 1 out of 1000) packets to be randomly dropped.
+</p>
+
+<p>
+An optional correlation may also be added. This causes the random number generator to be less random and can be used to emulate packet burst losses.
+</p>
+<pre class="code"> # tc qdisc change dev eth0 root netem loss 0.3% 25%</pre>
+
+<p>
+This will cause 0.3% of packets to be lost, and each successive probability depends by a quarter on the last one.
+</p>
+
+<p>
+Prob<sub>n</sub> = .25 * Prob<sub>n-1</sub> + .75 * Random
+</p>
+
+<p>
+&nbsp;
+</p>
+
+</div>
+
+<h4 id="caveats">Caveats</h4>
+<div class="level4">
+
+<p>
+&nbsp;
+</p>
+<ul>
+<li class="level1"><div class="li"> When loss is used locally (not on a bridge or router), the loss is reported to the upper level protocols. This may cause TCP to resend and behave as if there was no loss. When testing protocol reponse to loss it is best to use a netem on a <a href="https://www.linuxfoundation.org/node/add/wiki?gids[]=5066" class="urlextern" title="https://www.linuxfoundation.org/node/add/wiki?gids[]=5066" rel="nofollow"> bridge </a> or <a href="https://www.linuxfoundation.org/node/add/wiki?gids[]=5066" class="urlextern" title="https://www.linuxfoundation.org/node/add/wiki?gids[]=5066" rel="nofollow"> router </a></div>
+</li>
+</ul>
+
+</div>
+
+<h3 class="sectionedit7" id="packet-duplication">Packet duplication</h3>
+<div class="level3">
+
+<p>
+&nbsp;
+</p>
+
+<p>
+Packet duplication is specified the same way as packet loss.
+</p>
+<pre class="code"> # tc qdisc change dev eth0 root netem duplicate 1%</pre>
+
+</div>
+
+<h3 class="sectionedit8" id="packet-corruption">Packet corruption</h3>
+<div class="level3">
+
+<p>
+&nbsp;
+</p>
+
+<p>
+Random noise can be emulated (in 2.6.16 or later) with the corrupt option. This introduces a single bit error at a random offset in the packet.
+</p>
+<pre class="code"> # tc qdisc change dev eth0 root netem corrupt 0.1%</pre>
+
+</div>
+
+<h3 class="sectionedit9" id="packet-re-ordering">Packet re-ordering</h3>
+<div class="level3">
+
+<p>
+There are two different ways to specify reordering. The first method <strong>gap</strong> uses a fixed sequence and reorders every <em>Nth</em> packet. A simple usage of this is:
+</p>
+<pre class="code"> # tc qdisc change dev eth0 root netem gap 5 delay 10ms</pre>
+
+<p>
+This causes every 5th (10th, 15th, …) packet to go to be sent immediately and every other packet to be delayed by 10ms. This is predictable and useful for base protocol testing like reassembly.
+</p>
+
+<p>
+The second form <strong>reorder</strong> of re-ordering is more like real life. It causes a certain percentage of the packets to get mis-ordered.
+</p>
+<pre class="code"> # tc qdisc change dev eth0 root netem delay 10ms reorder 25% 50%</pre>
+
+<p>
+In this example, 25% of packets (with a correlation of 50%) will get sent immediately, others will be delayed by 10ms.
+</p>
+
+<p>
+Newer versions of netem will also re-order packets if the random delay values are out of order. The following will cause some reordering:
+</p>
+<pre class="code"> # tc qdisc change dev eth0 root netem delay 100ms 75ms</pre>
+
+<p>
+If the first packet gets a random delay of 100ms (100ms base - 0ms jitter) and the second packet is sent 1ms later and gets a delay of 50ms (100ms base - 50ms jitter); the second packet will be sent first. This is because the queue discipline <em>tfifo</em> inside netem, keeps packets in order by time to send.
+</p>
+
+</div>
+
+<h4 id="caveats1">Caveats</h4>
+<div class="level4">
+
+<p>
+&nbsp;
+</p>
+<ul>
+<li class="level1"><div class="li"> Mixing forms of reordering may lead to unexpected results</div>
+</li>
+<li class="level1"><div class="li"> Any method of reordering to work, some delay is necessary.</div>
+</li>
+<li class="level1"><div class="li"> If the delay is less than the inter-packet arrival time then no reordering will be seen.</div>
+</li>
+</ul>
+
+</div>
+
+<h3 class="sectionedit10" id="rate-control">Rate control</h3>
+<div class="level3">
+
+<p>
+&nbsp;
+</p>
+
+<p>
+There is no rate control built-in to the netem discipline, instead use one of the other disciplines that does do rate control. In this example, we use <a href="http://en.wikipedia.com/wiki/Token_bucket" class="urlextern" title="http://en.wikipedia.com/wiki/Token_bucket" rel="nofollow">Token Bucket</a> Filter (TBF) to limit output.
+</p>
+<pre class="code"> # tc qdisc add dev eth0 root handle 1:0 netem delay 100ms
+ # tc qdisc add dev eth0 parent 1:1 handle 10: tbf rate 256kbit buffer 1600 limit 3000
+ # tc -s qdisc ls dev eth0
+ qdisc netem 1: limit 1000 delay 100.0ms
+  Sent 0 bytes 0 pkts (dropped 0, overlimits 0 )
+ qdisc tbf 10: rate 256Kbit burst 1599b lat 26.6ms
+  Sent 0 bytes 0 pkts (dropped 0, overlimits 0 )</pre>
+
+<p>
+Check on the options for buffer and limit as you might find you need bigger defaults than these (they are in bytes)
+</p>
+
+<p>
+For more explanation about how to use classful queuing disciplines see: <a href="http://lartc.org/howto/lartc.qdisc.classful.html" class="urlextern" title="http://lartc.org/howto/lartc.qdisc.classful.html" rel="nofollow">Linux Advanced Routing HOWTO - classes</a>
+</p>
+
+</div>
+
+<h3 class="sectionedit11" id="non-fifo-queuing">Non FIFO queuing</h3>
+<div class="level3">
+
+<p>
+&nbsp;
+</p>
+
+<p>
+Just like the previous example, any of the other queuing disciplines (GRED, CBQ, etc) can be used.
+</p>
+
+</div>
+
+<h3 class="sectionedit12" id="delaying-only-some-traffic">Delaying only some traffic</h3>
+<div class="level3">
+
+<p>
+&nbsp;
+</p>
+
+<p>
+Here is a simple example that only controls traffic to one IP address.
+</p>
+<pre class="code"> # tc qdisc add dev eth0 root handle 1: prio
+ # tc qdisc add dev eth0 parent 1:3 handle 30: \
+tbf rate 20kbit buffer 1600 limit  3000
+ # tc qdisc add dev eth0 parent 30:1 handle 31: \
+netem  delay 200ms 10ms distribution normal
+ # tc filter add dev eth0 protocol ip parent 1:0 prio 3 u32 \
+     match ip dst 65.172.181.4/32 flowid 1:3</pre>
+
+<p>
+The commands makes a simple priority queueing discipline, then a TBF is added to do rate control, then attaches a basic netem. Finally, a filter classifies all packets going to 65.172.181.4 as being priority 3. For more info on traffic classification see <a href="http://lartc.org/howto/lartc.qdisc.filters.html" class="urlextern" title="http://lartc.org/howto/lartc.qdisc.filters.html" rel="nofollow">LARTC -- filters</a>
+</p>
+
+</div>
+
+<h2 class="sectionedit13" id="faq">FAQ</h2>
+<div class="level2">
+
+<p>
+&nbsp;
+</p>
+
+</div>
+
+<h3 class="sectionedit14" id="how-come-first-ping-takes-longer">How come first ping takes longer?</h3>
+<div class="level3">
+
+<p>
+The first ICMP packet in a ping requires an ARP request/response as well.
+</p>
+
+</div>
+
+<h3 class="sectionedit15" id="how-come-tcp-is-so-slow-over-netem">How come TCP is so slow over netem?</h3>
+<div class="level3">
+
+<p>
+When you run <a href="http://en.wikipedia.com/wiki/Transmission_Control_Protocol" class="urlextern" title="http://en.wikipedia.com/wiki/Transmission_Control_Protocol" rel="nofollow">TCP</a> over large <a href="http://en.wikipedia.com/wiki/Bandwidth-delay_product" class="urlextern" title="http://en.wikipedia.com/wiki/Bandwidth-delay_product" rel="nofollow"> Bandwidth Delay Product</a> links, you need to do some <a href="http://en.wikipedia.com/wiki/TCP_Tuning" class="urlextern" title="http://en.wikipedia.com/wiki/TCP_Tuning" rel="nofollow">TCP tuning</a> to increase the maximum possible buffer space.
+</p>
+
+</div>
+
+<h3 class="sectionedit16" id="how-can-i-use-netem-on-incoming-traffic">How can I use netem on incoming traffic?</h3>
+<div class="level3">
+
+<p>
+You need to use the Intermediate Functional Block pseudo-device <a href="https://wiki.linuxfoundation.org/networking/ifb" class="wikilink1" title="networking:ifb"> IFB </a>. This network device allows attaching queuing discplines to incoming packets.
+</p>
+<pre class="code"> # modprobe ifb
+ # ip link set dev ifb0 up
+ # tc qdisc add dev eth0 ingress
+ # tc filter add dev eth0 parent ffff: \ 
+   protocol ip u32 match u32 0 0 flowid 1:1 action mirred egress redirect dev ifb0
+ # tc qdisc add dev ifb0 root netem delay 750ms</pre>
+
+<p>
+Another way is to use another machine as an Ethernet <a href="https://www.linuxfoundation.org/node/add/wiki?gids[]=5066" class="urlextern" title="https://www.linuxfoundation.org/node/add/wiki?gids[]=5066" rel="nofollow"> bridge </a>, and apply netem to both Ethernet devices.
+</p>
+
+</div>
+
+<h3 class="sectionedit17" id="how-to-reorder-packets-based-on-jitter">How to reorder packets based on jitter?</h3>
+<div class="level3">
+
+<p>
+Starting with version 1.1 (in 2.6.15), netem will reorder packets if the delay value has lots of jitter.
+</p>
+
+<p>
+If you don't want this behaviour then replace the internal queue discipline <em>tfifo</em> with a pure packet fifo <em>pfifo</em>. The following example has lots of jitter, but the packets will stay in order.
+</p>
+<pre class="code"> # tc qdisc add dev eth0 root handle 1: netem delay 10ms 100ms
+ # tc qdisc add dev eth0 parent 1:1 pfifo limit 1000</pre>
+
+</div>
+
+<h3 class="sectionedit18" id="how-does-the-value-of-hz-impact-netem">How does the value of HZ impact Netem?</h3>
+<div class="level3">
+
+<p>
+In the 2.6 line of kernels, HZ is a configurable parameter that takes values of either 100, 250, or 1000. Because it affects the granularity with which Netem is able to delay packets, it is most beneficial to set HZ to 1000, which will allow for delays in increments of 1ms. See <a href="http://lists.osdl.org/pipermail/netem/2006-March/000343.html" class="urlextern" title="http://lists.osdl.org/pipermail/netem/2006-March/000343.html" rel="nofollow">this mailing list post</a> for a more detailed discussion of the impact of HZ.
+</p>
+
+<p>
+In kernel versions, 2.6.22 or later, netem will use high resolution timers, if they are enabled. This allows for finer granularity (sub-jiffie) resolution.
+</p>
+
+</div>
+
+<h2 class="sectionedit19" id="links">Links</h2>
+<div class="level2">
+
+<p>
+&nbsp;
+</p>
+<ul>
+<li class="level1"><div class="li"> Linux Conf Au <a href="http://developer.osdl.org/shemminger/LCA2005_netem.pdf" class="urlextern" title="http://developer.osdl.org/shemminger/LCA2005_netem.pdf" rel="nofollow">presentation</a> and <a href="http://developer.osdl.org/shemminger/LCA2005_paper.pdf" class="urlextern" title="http://developer.osdl.org/shemminger/LCA2005_paper.pdf" rel="nofollow">paper</a>.</div>
+</li>
+<li class="level1"><div class="li"> <a href="http://info.iet.unipi.it/~luigi/ip_dummynet/" class="urlextern" title="http://info.iet.unipi.it/~luigi/ip_dummynet/" rel="nofollow">dummynet an network emulator in FreeBSD</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="http://snad.ncsl.nist.gov/itg/nistnet/" class="urlextern" title="http://snad.ncsl.nist.gov/itg/nistnet/" rel="nofollow">NISTnet</a></div>
+</li>
+</ul>
+
+</div>
+
+<h2 class="sectionedit20" id="contact-info">Contact Info</h2>
+<div class="level2">
+
+<p>
+&nbsp;
+</p>
+
+<p>
+Since netem is part of the core Linux subsystem, all bug reports and patches should be sent to <a href="mailto:mailto:netdev@vger.kernel.org" class="mail" title="mailto:netdev@vger.kernel.org">Linux Network Developers</a> mailing list.
+</p>
+
+<p>
+The netem@osdl.org mailing list is available for user discussions. Mail from non-subscribers is moderated to prevent spam. To subscribe or unsubscribe use the <a href="http://lists.osdl.org/mailman/listinfo/netem" class="urlextern" title="http://lists.osdl.org/mailman/listinfo/netem" rel="nofollow">Netem mailing list interface</a>.
+</p>
+
+</div>
+
+                    <!-- wikipage stop -->
+                                    </div>
+
+                <div class="docInfo"><bdi>networking/netem.txt</bdi> · Last modified: 2016/07/19 01:22 (external edit)</div>
+
+                            </div></div><!-- /content -->
+
+            <hr class="a11y">
+
+            <!-- PAGE ACTIONS -->
+            <div id="dokuwiki__pagetools">
+                <h3 class="a11y">Page Tools</h3>
+                <div class="tools">
+                    <ul>
+                        <li><a href="https://wiki.linuxfoundation.org/networking/netem?do=edit" class="action source" accesskey="v" rel="nofollow" title="Show pagesource [V]"><span>Show pagesource</span></a></li><li><a href="https://wiki.linuxfoundation.org/networking/netem?do=revisions" class="action revs" accesskey="o" rel="nofollow" title="Old revisions [O]"><span>Old revisions</span></a></li><li><a href="https://wiki.linuxfoundation.org/networking/netem?do=backlink" class="action backlink" rel="nofollow" title="Backlinks"><span>Backlinks</span></a></li><li class="plugin_move_page"><a href="https://wiki.linuxfoundation.org/networking/netem"><span>Rename Page</span></a></li><li><a href="https://wiki.linuxfoundation.org/networking/netem#dokuwiki__top" class="action top" accesskey="t" rel="nofollow" title="Back to top [T]"><span>Back to top</span></a></li>                    </ul>
+                </div>
+            </div>
+        </div><!-- /wrapper -->
+
+        
+<!-- ********** FOOTER ********** -->
+<div id="dokuwiki__footer"><div class="pad">
+    
+    <div class="buttons">
+                <a href="http://www.dokuwiki.org/donate" title="Donate"><img src="./networking_netem [Linux Foundation Wiki]_files/button-donate.gif" width="80" height="15" alt="Donate"></a>
+        <a href="http://php.net/" title="Powered by PHP"><img src="./networking_netem [Linux Foundation Wiki]_files/button-php.gif" width="80" height="15" alt="Powered by PHP"></a>
+        <a href="http://validator.w3.org/check/referer" title="Valid HTML5"><img src="./networking_netem [Linux Foundation Wiki]_files/button-html5.png" width="80" height="15" alt="Valid HTML5"></a>
+        <a href="http://jigsaw.w3.org/css-validator/check/referer?profile=css3" title="Valid CSS"><img src="./networking_netem [Linux Foundation Wiki]_files/button-css.png" width="80" height="15" alt="Valid CSS"></a>
+        <a href="http://dokuwiki.org/" title="Driven by DokuWiki"><img src="./networking_netem [Linux Foundation Wiki]_files/button-dw.png" width="80" height="15" alt="Driven by DokuWiki"></a>
+    </div>
+</div></div><!-- /footer -->
+
+    </div></div><!-- /site -->
+
+    <div class="no"><img src="./networking_netem [Linux Foundation Wiki]_files/indexer.php" width="2" height="1" alt=""></div>
+    <div id="screen__mode" class="no"></div>
+
+</body></html>

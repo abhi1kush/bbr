@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)https://wiki.linuxfoundation.org/networking/tcp_testing -->
+<html lang="en" dir="ltr" class="js desktop"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>networking:tcp_testing [Linux Foundation Wiki]</title>
+    <script async="" src="./networking_tcp_testing [Linux Foundation Wiki]_files/analytics.js"></script><script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
+    <meta name="generator" content="DokuWiki">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="networking,tcp_testing">
+<link rel="search" type="application/opensearchdescription+xml" href="https://wiki.linuxfoundation.org/lib/exe/opensearch.php" title="Linux Foundation Wiki">
+<link rel="start" href="https://wiki.linuxfoundation.org/">
+<link rel="contents" href="https://wiki.linuxfoundation.org/networking/tcp_testing?do=index" title="Sitemap">
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="https://wiki.linuxfoundation.org/feed.php">
+<link rel="alternate" type="application/rss+xml" title="Current namespace" href="https://wiki.linuxfoundation.org/feed.php?mode=list&amp;ns=networking">
+<link rel="alternate" type="text/html" title="Plain HTML" href="https://wiki.linuxfoundation.org/_export/xhtml/networking/tcp_testing">
+<link rel="alternate" type="text/plain" title="Wiki Markup" href="https://wiki.linuxfoundation.org/_export/raw/networking/tcp_testing">
+<link rel="canonical" href="https://wiki.linuxfoundation.org/networking/tcp_testing">
+<link rel="stylesheet" type="text/css" href="./networking_tcp_testing [Linux Foundation Wiki]_files/css.php">
+<script type="text/javascript">/*<![CDATA[*/var NS='networking';var JSINFO = {"id":"networking:tcp_testing","namespace":"networking","move_renameokay":false};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="./networking_tcp_testing [Linux Foundation Wiki]_files/js.php"></script><style id="iris-css">.iris-picker{display:block;position:relative}.iris-picker,.iris-picker *{-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input+.iris-picker{margin-top:4px}.iris-error{background-color:#ffafaf}.iris-border{border-radius:3px;border:1px solid #aaa;width:200px;background-color:#fff}.iris-picker-inner{position:absolute;top:0;right:0;left:0;bottom:0}.iris-border .iris-picker-inner{top:10px;right:10px;left:10px;bottom:10px}.iris-picker .iris-square-inner{position:absolute;left:0;right:0;top:0;bottom:0}.iris-picker .iris-square,.iris-picker .iris-slider,.iris-picker .iris-square-inner,.iris-picker .iris-palette{border-radius:3px;box-shadow:inset 0 0 5px rgba(0,0,0,.4);height:100%;width:12.5%;float:left;margin-right:5%}.iris-picker .iris-square{width:76%;margin-right:10%;position:relative}.iris-picker .iris-square-inner{width:auto;margin:0}.iris-ie-9 .iris-square,.iris-ie-9 .iris-slider,.iris-ie-9 .iris-square-inner,.iris-ie-9 .iris-palette{box-shadow:none;border-radius:0}.iris-ie-9 .iris-square,.iris-ie-9 .iris-slider,.iris-ie-9 .iris-palette{outline:1px solid rgba(0,0,0,.1)}.iris-ie-lt9 .iris-square,.iris-ie-lt9 .iris-slider,.iris-ie-lt9 .iris-square-inner,.iris-ie-lt9 .iris-palette{outline:1px solid #aaa}.iris-ie-lt9 .iris-square .ui-slider-handle{outline:1px solid #aaa;background-color:#fff;-ms-filter:"alpha(Opacity=30)"}.iris-ie-lt9 .iris-square .iris-square-handle{background:0;border:3px solid #fff;-ms-filter:"alpha(Opacity=50)"}.iris-picker .iris-strip{margin-right:0;position:relative}.iris-picker .iris-strip .ui-slider-handle{position:absolute;background:0;margin:0;right:-3px;left:-3px;border:4px solid #aaa;border-width:4px 3px;width:auto;height:6px;border-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.2);opacity:.9;z-index:5;cursor:ns-resize}.iris-strip .ui-slider-handle:before{content:" ";position:absolute;left:-2px;right:-2px;top:-3px;bottom:-3px;border:2px solid #fff;border-radius:3px}.iris-picker .iris-slider-offset{position:absolute;top:11px;left:0;right:0;bottom:-3px;width:auto;height:auto;background:transparent;border:0;border-radius:0}.iris-picker .iris-square-handle{background:transparent;border:5px solid #aaa;border-radius:50%;border-color:rgba(128,128,128,.5);box-shadow:none;width:12px;height:12px;position:absolute;left:-10px;top:-10px;cursor:move;opacity:1;z-index:10}.iris-picker .ui-state-focus .iris-square-handle{opacity:.8}.iris-picker .iris-square-handle:hover{border-color:#999}.iris-picker .iris-square-value:focus .iris-square-handle{box-shadow:0 0 2px rgba(0,0,0,.75);opacity:.8}.iris-picker .iris-square-handle:hover::after{border-color:#fff}.iris-picker .iris-square-handle::after{position:absolute;bottom:-4px;right:-4px;left:-4px;top:-4px;border:3px solid #f9f9f9;border-color:rgba(255,255,255,.8);border-radius:50%;content:" "}.iris-picker .iris-square-value{width:8px;height:8px;position:absolute}.iris-ie-lt9 .iris-square-value,.iris-mozilla .iris-square-value{width:1px;height:1px}.iris-palette-container{position:absolute;bottom:0;left:0;margin:0;padding:0}.iris-border .iris-palette-container{left:10px;bottom:10px}.iris-picker .iris-palette{margin:0;cursor:pointer}.iris-square-handle,.ui-slider-handle{border:0;outline:0}</style>
+<script type="text/javascript">/*<![CDATA[*/(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-831873-54');ga('send', 'pageview');
+/*!]]>*/</script>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="shortcut icon" href="https://wiki.linuxfoundation.org/lib/tpl/dokuwiki/images/favicon.ico">
+<link rel="apple-touch-icon" href="https://wiki.linuxfoundation.org/lib/tpl/dokuwiki/images/apple-touch-icon.png">
+    </head>
+
+<body>
+    <div id="dokuwiki__site"><div id="dokuwiki__top" class="site dokuwiki mode_show tpl_dokuwiki     ">
+
+        
+<!-- ********** HEADER ********** -->
+<div id="dokuwiki__header"><div class="pad group">
+
+    
+    <div class="headings group">
+        <ul class="a11y skip">
+            <li><a href="https://wiki.linuxfoundation.org/networking/tcp_testing#dokuwiki__content">skip to content</a></li>
+        </ul>
+
+        <h1><a href="https://wiki.linuxfoundation.org/start" accesskey="h" title="[H]"><img src="./networking_tcp_testing [Linux Foundation Wiki]_files/logo.png" width="200" height="64" alt=""> <span>Linux Foundation Wiki</span></a></h1>
+                    <p class="claim">project collaboration site</p>
+            </div>
+
+    <div class="tools group">
+        <!-- USER TOOLS -->
+                    <div id="dokuwiki__usertools">
+                <h3 class="a11y">User Tools</h3>
+                <ul>
+                    <li><a href="https://wiki.linuxfoundation.org/networking/tcp_testing?do=login&amp;sectok=a33d67d69447793b4290bcbab054c271" class="action login" rel="nofollow" title="Login / Register">Login / Register</a></li>                </ul>
+            </div>
+        
+        <!-- SITE TOOLS -->
+        <div id="dokuwiki__sitetools">
+            <h3 class="a11y">Site Tools</h3>
+            <form action="https://wiki.linuxfoundation.org/start" accept-charset="utf-8" class="search" id="dw__search" method="get" role="search"><div class="no"><input type="hidden" name="do" value="search"><input type="text" placeholder="Search" id="qsearch__in" accesskey="f" name="id" class="edit" title="[F]"><button type="submit" title="Search">Search</button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>            <div class="mobileTools">
+                <form action="https://wiki.linuxfoundation.org/doku.php" method="get" accept-charset="utf-8"><div class="no"><input type="hidden" name="id" value="networking:tcp_testing"><select name="do" class="edit quickselect" title="Tools"><option value="">Tools</option><optgroup label="Page Tools"><option value="edit">Show pagesource</option><option value="revisions">Old revisions</option><option value="backlink">Backlinks</option></optgroup><optgroup label="Site Tools"><option value="recent">Recent Changes</option><option value="media">Media Manager</option><option value="index">Sitemap</option></optgroup><optgroup label="User Tools"><option value="login">Login / Register</option></optgroup></select><button type="submit" style="display: none;">&gt;</button></div></form>            </div>
+            <ul>
+                <li><a href="https://wiki.linuxfoundation.org/networking/tcp_testing?do=recent" class="action recent" accesskey="r" rel="nofollow" title="Recent Changes [R]">Recent Changes</a></li><li><a href="https://wiki.linuxfoundation.org/networking/tcp_testing?do=media&amp;ns=networking" class="action media" rel="nofollow" title="Media Manager">Media Manager</a></li><li><a href="https://wiki.linuxfoundation.org/networking/tcp_testing?do=index" class="action index" accesskey="x" rel="nofollow" title="Sitemap [X]">Sitemap</a></li>            </ul>
+        </div>
+
+    </div>
+
+    <!-- BREADCRUMBS -->
+            <div class="breadcrumbs">
+                                        <div class="trace"><span class="bchead">Trace:</span> <span class="bcsep">•</span> <bdi><a href="https://wiki.linuxfoundation.org/networking/netem" class="breadcrumbs" title="networking:netem">netem</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="https://wiki.linuxfoundation.org/networking/tcp_testing" class="breadcrumbs" title="networking:tcp_testing">tcp_testing</a></bdi></span></div>
+                    </div>
+    
+
+
+    <hr class="a11y">
+</div></div><!-- /header -->
+
+        <div class="wrapper group">
+
+            
+            <!-- ********** CONTENT ********** -->
+            <div id="dokuwiki__content"><div class="pad group">
+                
+                <div class="pageId"><span>networking:tcp_testing</span></div>
+
+                <div class="page group">
+                                                            <!-- wikipage start -->
+                    <!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle open" style="cursor: pointer;"><strong><span>−</span></strong>Table of Contents</h3>
+<div aria-expanded="true">
+
+<ul class="toc" style="">
+<li class="level1"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/tcp_testing#tcp_testing">tcp_testing</a></div>
+<ul class="toc">
+<li class="level2"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/tcp_testing#contents">Contents</a></div></li>
+<li class="level2"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/tcp_testing#tools">Tools</a></div></li>
+<li class="level2"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/tcp_testing#tuning">Tuning</a></div></li>
+<li class="level2"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/tcp_testing#experiments">Experiments</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/tcp_testing#congestion-control">Congestion Control</a></div></li>
+<li class="level3"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/tcp_testing#performance">Performance</a></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/tcp_testing#protocol-conformance">Protocol Conformance</a></div></li>
+<li class="level2"><div class="li"><a href="https://wiki.linuxfoundation.org/networking/tcp_testing#external-links">External Links</a></div></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h1 class="sectionedit1" id="tcp_testing">tcp_testing</h1>
+<div class="level1">
+
+<p>
+TCP testing in Linux is an continuous process. These tests are concerned with the behavior and correctness of the TCP protocol in the Linux kernel.
+</p>
+
+<p>
+<em>More will be added to this page soon.</em>
+</p>
+
+</div>
+
+<h2 class="sectionedit2" id="contents">Contents</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a href="https://www.linuxfoundation.org/#Tools" class="urlextern" title="https://www.linuxfoundation.org/#Tools" rel="nofollow">1 Tools</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="https://www.linuxfoundation.org/#Tuning" class="urlextern" title="https://www.linuxfoundation.org/#Tuning" rel="nofollow">2 Tuning</a></div>
+</li>
+<li class="level1 node"><div class="li"> <a href="https://www.linuxfoundation.org/#Experiments" class="urlextern" title="https://www.linuxfoundation.org/#Experiments" rel="nofollow">3 Experiments</a></div>
+<ul>
+<li class="level2 node"><div class="li"> <a href="https://www.linuxfoundation.org/#Congestion_Control" class="urlextern" title="https://www.linuxfoundation.org/#Congestion_Control" rel="nofollow">3.1 Congestion Control</a></div>
+<ul>
+<li class="level3"><div class="li"> <a href="https://www.linuxfoundation.org/#Example" class="urlextern" title="https://www.linuxfoundation.org/#Example" rel="nofollow">3.1.1 Example</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="https://www.linuxfoundation.org/#Variations" class="urlextern" title="https://www.linuxfoundation.org/#Variations" rel="nofollow">3.1.2 Variations</a></div>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li"> <a href="https://www.linuxfoundation.org/#Performance" class="urlextern" title="https://www.linuxfoundation.org/#Performance" rel="nofollow">3.2 Performance</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <a href="https://www.linuxfoundation.org/#Protocol_Conformance" class="urlextern" title="https://www.linuxfoundation.org/#Protocol_Conformance" rel="nofollow">4 Protocol Conformance</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="https://www.linuxfoundation.org/#External_Links" class="urlextern" title="https://www.linuxfoundation.org/#External_Links" rel="nofollow">5 External Links</a></div>
+</li>
+</ul>
+
+</div>
+
+<h2 class="sectionedit3" id="tools">Tools</h2>
+<div class="level2">
+
+<p>
+Many tools are available for building TCP tests, but some of the basic ones are:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong> <a href="https://wiki.linuxfoundation.org/networking/iperf" class="wikilink1" title="networking:iperf"> Iperf </a>&nbsp;</strong></div>
+</li>
+<li class="level1"><div class="li">  a simple client/server test application.</div>
+</li>
+<li class="level1"><div class="li"> <strong> <a href="https://wiki.linuxfoundation.org/networking/tcpprobe" class="wikilink1" title="networking:tcpprobe"> TcpProbe </a>&nbsp;</strong></div>
+</li>
+<li class="level1"><div class="li">  kernel module that creates a way to see TCP endpoint state changes</div>
+</li>
+<li class="level1"><div class="li"> <strong> <a href="https://wiki.linuxfoundation.org/networking/netem" class="wikilink1" title="networking:netem"> Netem </a>&nbsp;</strong></div>
+</li>
+<li class="level1"><div class="li">  emulate long delays, packet loss etc.</div>
+</li>
+</ul>
+
+</div>
+
+<h2 class="sectionedit4" id="tuning">Tuning</h2>
+<div class="level2">
+
+<p>
+When running TCP experiments over high <a href="http://en.wikipedia.com/wiki/Bandwidth-delay_product" class="urlextern" title="http://en.wikipedia.com/wiki/Bandwidth-delay_product" rel="nofollow">Bandwidth Delay Product</a> (BDP) you probably want to change the maximum available TCP window size. TCP tuning is done via <a href="http://en.wikipedia.com/wiki/sysctl" class="urlextern" title="http://en.wikipedia.com/wiki/sysctl" rel="nofollow">wikipedia:sysctl</a> parameters documented in <a href="https://wiki.linuxfoundation.org/networking/ip-sysctl" class="wikilink1" title="networking:ip-sysctl">Net:Ip-sysctl</a> (or Documentation/networking/ip-sysctl.txt) see for more info.
+At a minimum increase tcp_rmem[2] for receiver and tcp_wmem[2] for sender to twice the BDP.
+</p>
+
+<p>
+If the test involves repeated connections, you should also turn off the route metrics:
+</p>
+<pre class="code"> sysctl -w net.ipv4.tcp_no_metrics_save=1</pre>
+
+<p>
+Normally Linux will remember the last <a href="http://en.wikipedia.com/wiki/Slow-start" class="urlextern" title="http://en.wikipedia.com/wiki/Slow-start" rel="nofollow">slow start</a> threshold (ssthresh). This modifies the result of the second test, and causes errors.
+</p>
+
+</div>
+
+<h2 class="sectionedit5" id="experiments">Experiments</h2>
+<div class="level2">
+
+</div>
+
+<h3 class="sectionedit6" id="congestion-control">Congestion Control</h3>
+<div class="level3">
+
+<p>
+The purpose of congestion control tests is to observe how the congestion window changes with different network conditions. These tests have lots of possible variables and there is no one “right answer”.
+</p>
+
+</div>
+
+<h4 id="example">Example</h4>
+<div class="level4">
+
+<p>
+A basic test would be:
+</p>
+<ol>
+<li class="level1"><div class="li">  Start <em>iperf</em> server on the receiver</div>
+</li>
+</ol>
+<pre class="code"> iperf -s</pre>
+<ol>
+<li class="level1"><div class="li">  Insert <em>tcp_probe</em> module (as root) on sending machine and filter for iperf port. You can change the mode to allow non-root user access</div>
+</li>
+</ol>
+<pre class="code"> modprobe tcp_probe port=5001
+ chmod 444 /proc/net/tcpprobe</pre>
+<ol>
+<li class="level1"><div class="li">  Capture tcp probe output (on sender) and place in background</div>
+</li>
+</ol>
+<pre class="code"> cat /proc/net/tcpprobe &gt;/tmp/tcpprobe.out &amp;
+ TCPCAP=$!</pre>
+<ol>
+<li class="level1"><div class="li">  Run <em>iperf</em> test on sender for 15minutes</div>
+</li>
+</ol>
+<pre class="code"> iperf -i 10 -t 300 -c //receiver//</pre>
+<ol>
+<li class="level1"><div class="li">  Kill capture process</div>
+</li>
+</ol>
+<pre class="code">  kill $TCPCAP</pre>
+
+<p>
+The tcp probe capture file will contain one line for each packet sent.
+</p>
+<pre class="code"> 0.073678 10.8.0.54:38644 192.168.1.42:5001 24 0xb6b19bb 0xb6b19bb 2 2147483647 5792
+ ^        ^               ^                 ^  ^         ^         ^ ^          ^
+ |        |               |                 |  |         |         | |          +- [9] Send window
+ |        |               |                 |  |         |         | +------------ [8] Slow start threshold
+ |        |               |                 |  |         |         +-------------- [7] Congestion window
+ |        |               |                 |  |         +------------------------ [6] Unacknowledged sequence #
+ |        |               |                 |  +---------------------------------- [5] Next send sequence #
+ |        |               |                 +------------------------------------- [4] Bytes in packet
+ |        |               +------------------------------------------------------- [3] Receiver address:port
+ |        +----------------------------------------------------------------------- [2] Sender address:port
+ +-------------------------------------------------------------------------------- [1] Time seconds
+ 
+ * The value of slow start threshold here is (-1) which means it hasn't been determined yet
+ * Time since Tcp probe was loaded.</pre>
+
+<p>
+This text file can be easily filtered and modified with standard tools such as <a href="http://en.wikipedia.com/wiki/Awk" class="urlextern" title="http://en.wikipedia.com/wiki/Awk" rel="nofollow">awk</a> and <a href="http://en.wikipedia.com/wiki/Perl" class="urlextern" title="http://en.wikipedia.com/wiki/Perl" rel="nofollow">perl</a>. A common usage is to make a plot of congestion window and slow start threshold over time using <a href="http://en.wikipedia.com/wiki/Gnuplot" class="urlextern" title="http://en.wikipedia.com/wiki/Gnuplot" rel="nofollow">gnuplot</a>.
+</p>
+<pre class="code"> $ gnuplot -persist &lt;&lt;"EOF"
+ set data style linespoints
+ show timestamp
+ set xlabel "time (seconds)"
+ set ylabel "Segments (cwnd, ssthresh)"
+ plot "/tmp/tcpprobe.out" using 1:7 title "snd_cwnd", \
+      "/tmp/tcpprobe.out" using 1:($8&gt;=2147483647&nbsp;? 0&nbsp;: $8) title "snd_ssthresh"
+ EOF</pre>
+
+<p>
+The result should look something like this:<img src="./networking_tcp_testing [Linux Foundation Wiki]_files/fetch.php" class="media" alt="">
+</p>
+
+<p>
+A set of scripts to run test like this and plot are available <a href="http://developer.osdl.org/shemminger/tcp/tcpprobe-utils.tar.gz" class="urlextern" title="http://developer.osdl.org/shemminger/tcp/tcpprobe-utils.tar.gz" rel="nofollow">[1]</a>
+</p>
+
+</div>
+
+<h4 id="variations">Variations</h4>
+<div class="level4">
+
+<p>
+There are many possible factors that can be evaluated in any test.
+For a good discussion of the issues see the paper:<a href="http://www.sigcomm.org/ccr/archive/1999/oct99/ccr-9910-allman2.html" class="urlextern" title="http://www.sigcomm.org/ccr/archive/1999/oct99/ccr-9910-allman2.html" rel="nofollow">On the effective evaluation of TCP</a> and <a href="http://www.hamilton.ie/net/eval/ToNfinal.pdf" class="urlextern" title="http://www.hamilton.ie/net/eval/ToNfinal.pdf" rel="nofollow">Experimental evaluation of TCP protocols for high-speed networks</a>.
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong> Algorithim&nbsp;</strong></div>
+</li>
+<li class="level1"><div class="li">  Linux provides many congestion control algorithms now.</div>
+</li>
+<li class="level1"><div class="li"> <strong> BDP&nbsp;</strong></div>
+</li>
+<li class="level1"><div class="li">  TCP needs to adapt to a wide range of band-width delay products</div>
+</li>
+<li class="level1"><div class="li"> <strong> Loss&nbsp;</strong></div>
+</li>
+<li class="level1"><div class="li">  TCP should recover from moderate loss, but since most congestion control algorithms use loss to estimate BDP; they have trouble distinguishing random packet loss from router queue overflow packet drop.</div>
+</li>
+<li class="level1"><div class="li"> <strong> Fairness&nbsp;</strong></div>
+</li>
+<li class="level1"><div class="li">  <em>Define fairness and how to measure it</em></div>
+</li>
+<li class="level1"><div class="li"> <strong> Background traffic</strong></div>
+</li>
+<li class="level1"><div class="li">  <em>Describe how to add background traffic via harpoon here</em></div>
+</li>
+</ul>
+
+</div>
+
+<h3 class="sectionedit7" id="performance">Performance</h3>
+<div class="level3">
+
+<p>
+On Linux TCP should be able to fully saturate the network given a sufficiently fast CPU and bus for a single connection. Some useful tools are:
+</p>
+<ul>
+<li class="level1"><div class="li">  <a href="http://www.netperf.org/netperf/NetperfPage.html" class="urlextern" title="http://www.netperf.org/netperf/NetperfPage.html" rel="nofollow">netperf</a> allow for measuring CPU utilization</div>
+</li>
+<li class="level1"><div class="li">  <a href="http://httpd.apache.org/docs/2.0/programs/ab.html" class="urlextern" title="http://httpd.apache.org/docs/2.0/programs/ab.html" rel="nofollow">Apache benchmark</a> for measuring lots of web connections</div>
+</li>
+<li class="level1"><div class="li">  <a href="http://curl-loader.sourceforge.net/" class="urlextern" title="http://curl-loader.sourceforge.net/" rel="nofollow">curl-loader</a> web traffic generation (HTTP/S, <abbr title="File Transfer Protocol">FTP</abbr>/S) with 10-20K and more real HTTP sessions</div>
+</li>
+</ul>
+
+<p>
+See also <a href="https://wiki.linuxfoundation.org/networking/performance_testing" class="wikilink1" title="networking:performance_testing"> Performance Testing </a>.
+</p>
+
+</div>
+
+<h2 class="sectionedit8" id="protocol-conformance">Protocol Conformance</h2>
+<div class="level2">
+
+<p>
+There are (expensive) TCP protocol validation suites.
+</p>
+
+<p>
+<a href="http://en.wikipedia.com/wiki/Fuzz_testing" class="urlextern" title="http://en.wikipedia.com/wiki/Fuzz_testing" rel="nofollow">Fuzz testing</a> is a useful way to find unexpected bugs in the TCP processing.<a href="http://isic.sourceforge.net/" class="urlextern" title="http://isic.sourceforge.net" rel="nofollow">ISIC</a> is a suite of utilities to exercise the stability of an IP Stack and its component stacks (TCP, UDP, ICMP et. al.)
+</p>
+
+<p>
+<br>
+
+</p>
+
+</div>
+
+<h2 class="sectionedit9" id="external-links">External Links</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li">  <a href="http://web100.org/" class="urlextern" title="http://web100.org/" rel="nofollow">Web100 project</a></div>
+</li>
+<li class="level1"><div class="li">  Protocols for Long Distance Networks conference <a href="http://wil.cs.caltech.edu/pfldnet2007/" class="urlextern" title="http://wil.cs.caltech.edu/pfldnet2007/" rel="nofollow">2007</a> <a href="http://www.hpcc.jp/pfldnet2006/technical.html" class="urlextern" title="http://www.hpcc.jp/pfldnet2006/technical.html" rel="nofollow">2006</a></div>
+</li>
+<li class="level1"><div class="li">  <a href="http://www.hamilton.ie/" class="urlextern" title="http://www.hamilton.ie" rel="nofollow">Hamilton Institute</a> <a href="http://www.hamilton.ie/net/eval/" class="urlextern" title="http://www.hamilton.ie/net/eval/" rel="nofollow">Experimental testing</a></div>
+</li>
+<li class="level1"><div class="li">  <a href="http://ncsu.edu/" class="urlextern" title="http://ncsu.edu" rel="nofollow">NCSU</a> developers of <a href="http://www.csc.ncsu.edu/faculty/rhee/export/bitcp/index_files/Page815.htm" class="urlextern" title="http://www.csc.ncsu.edu/faculty/rhee/export/bitcp/index_files/Page815.htm" rel="nofollow">CUBIC</a> and <a href="http://www.csc.ncsu.edu/faculty/rhee/export/bitcp/" class="urlextern" title="http://www.csc.ncsu.edu/faculty/rhee/export/bitcp/" rel="nofollow">BIC</a>, experimental results <a href="http://netsrv.csc.ncsu.edu/highspeed" class="urlextern" title="http://netsrv.csc.ncsu.edu/highspeed" rel="nofollow">[2]</a> <a href="http://netsrv.csc.ncsu.edu/convex-ordering" class="urlextern" title="http://netsrv.csc.ncsu.edu/convex-ordering" rel="nofollow">[3]</a></div>
+</li>
+<li class="level1"><div class="li">  Stanford Linear Accelerator Testbed <a href="http://www-iepm.slac.stanford.edu/bw/tcp-eval/" class="urlextern" title="http://www-iepm.slac.stanford.edu/bw/tcp-eval/" rel="nofollow">experiments</a> and <a href="http://dsd.lbl.gov/DIDC/PFLDnet2004/papers/Bullot.pdf" class="urlextern" title="http://dsd.lbl.gov/DIDC/PFLDnet2004/papers/Bullot.pdf" rel="nofollow">report</a></div>
+</li>
+<li class="level1"><div class="li">  <a href="http://developer.osdl.org/shemminger/tcp" class="urlextern" title="http://developer.osdl.org/shemminger/tcp" rel="nofollow">Stephen Hemminger development tests</a> results <a href="http://developer.osdl.org/shemminger/tcp/2.6.19-rc3" class="urlextern" title="http://developer.osdl.org/shemminger/tcp/2.6.19-rc3" rel="nofollow">2.6.19-rc3</a> <a href="http://developer.osdl.org/shemminger/tcp/2.6.19-rc4/dsl" class="urlextern" title="http://developer.osdl.org/shemminger/tcp/2.6.19-rc4/dsl" rel="nofollow">2.6.19-rc4</a> <a href="http://developer.osdl.org/shemminger/tcp/net-2.6.22" class="urlextern" title="http://developer.osdl.org/shemminger/tcp/net-2.6.22" rel="nofollow">pre-2.6.22</a></div>
+</li>
+</ul>
+
+</div>
+
+                    <!-- wikipage stop -->
+                                    </div>
+
+                <div class="docInfo"><bdi>networking/tcp_testing.txt</bdi> · Last modified: 2016/07/19 01:22 (external edit)</div>
+
+                            </div></div><!-- /content -->
+
+            <hr class="a11y">
+
+            <!-- PAGE ACTIONS -->
+            <div id="dokuwiki__pagetools">
+                <h3 class="a11y">Page Tools</h3>
+                <div class="tools">
+                    <ul>
+                        <li><a href="https://wiki.linuxfoundation.org/networking/tcp_testing?do=edit" class="action source" accesskey="v" rel="nofollow" title="Show pagesource [V]"><span>Show pagesource</span></a></li><li><a href="https://wiki.linuxfoundation.org/networking/tcp_testing?do=revisions" class="action revs" accesskey="o" rel="nofollow" title="Old revisions [O]"><span>Old revisions</span></a></li><li><a href="https://wiki.linuxfoundation.org/networking/tcp_testing?do=backlink" class="action backlink" rel="nofollow" title="Backlinks"><span>Backlinks</span></a></li><li class="plugin_move_page"><a href="https://wiki.linuxfoundation.org/networking/tcp_testing"><span>Rename Page</span></a></li><li><a href="https://wiki.linuxfoundation.org/networking/tcp_testing#dokuwiki__top" class="action top" accesskey="t" rel="nofollow" title="Back to top [T]"><span>Back to top</span></a></li>                    </ul>
+                </div>
+            </div>
+        </div><!-- /wrapper -->
+
+        
+<!-- ********** FOOTER ********** -->
+<div id="dokuwiki__footer"><div class="pad">
+    
+    <div class="buttons">
+                <a href="http://www.dokuwiki.org/donate" title="Donate"><img src="./networking_tcp_testing [Linux Foundation Wiki]_files/button-donate.gif" width="80" height="15" alt="Donate"></a>
+        <a href="http://php.net/" title="Powered by PHP"><img src="./networking_tcp_testing [Linux Foundation Wiki]_files/button-php.gif" width="80" height="15" alt="Powered by PHP"></a>
+        <a href="http://validator.w3.org/check/referer" title="Valid HTML5"><img src="./networking_tcp_testing [Linux Foundation Wiki]_files/button-html5.png" width="80" height="15" alt="Valid HTML5"></a>
+        <a href="http://jigsaw.w3.org/css-validator/check/referer?profile=css3" title="Valid CSS"><img src="./networking_tcp_testing [Linux Foundation Wiki]_files/button-css.png" width="80" height="15" alt="Valid CSS"></a>
+        <a href="http://dokuwiki.org/" title="Driven by DokuWiki"><img src="./networking_tcp_testing [Linux Foundation Wiki]_files/button-dw.png" width="80" height="15" alt="Driven by DokuWiki"></a>
+    </div>
+</div></div><!-- /footer -->
+
+    </div></div><!-- /site -->
+
+    <div class="no"><img src="./networking_tcp_testing [Linux Foundation Wiki]_files/indexer.php" width="2" height="1" alt=""></div>
+    <div id="screen__mode" class="no"></div>
+
+</body></html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+  
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+
+  
+  <title>Networking Assignment</title>
+</head>
+
+
+<body>
+<h1>Tweaking TCP<br>
+</h1>
+<h2>Introduction</h2>
+Internet users are dependent upon the <a href="http://en.wikipedia.org/wiki/Transmission_Control_Protocol">Transmission Control Protocol (TCP)</a>
+for reliable transmission of data in a heterogeneous and unreliable
+global network. Many Internet applications could not function without
+TCP. In recent years, some Internet service providers (ISPs) have <a href="http://torrentfreak.com/comcast-throttles-bittorrent-traffic-seeding-impossible/">exploited</a>
+inherent characteristics and vulnerabilities of TCP to selectively
+restrict or eliminate traffic flowing over their networks, particularly
+traffic related to the BitTorrent P2P file sharing service. Although
+such restrictions can be avoided by <a href="http://torrentfreak.com/how-to-bypass-comcast-bittorrent-throttling-071021/">technical means</a> in some cases and through <a href="http://www.news.com/8301-10784_3-9905096-7.html?tag=cd.blog">negotiation</a> in others, computer scientists have been reminded of the importance and limitations of currently deployed TCP implementations.<br>
+<br>
+In this assignment you will explore the performance limitations of TCP
+by experimenting with commonly deployed algorithms using a simulated
+network. For ambitious students, an extra credit section related
+to&nbsp;TCP security vulnerabilities is offered at the end of the
+assignment. (A good introduction to <a href="http://kerneltrap.org/node/3072">TCP in the context of security</a> may be of interest to all students.)
+<h2><span style="font-weight: bold;">
+Part 1: Installation and Configuration of Linux on VirtualPC</span></h2>
+
+Because it provides a rich variety of OS components and utilities for
+measuring and optimizing network performance, we will be using Linux
+for this assignment. Specifically, the assignment was written with the
+Ubuntu 7.10 distribution in mind, which is based on release 2.6.22 of
+the Linux kernel. We assume that most students will run Ubuntu within
+VirtualPC, but those wishing to run Linux directly on their own
+hardware are free to do so.<br>
+<h3><span style="font-weight: bold;">
+A) Install Ubuntu within VirtualPC</span></h3>
+A good tutorial for installing Ubuntu on Virtual PC is available <a href="http://arcanecode.wordpress.com/2007/10/18/installing-ubuntu-710-under-virtual-pc-2007/">here</a>. After completing the installation per the tutorial, a few additional steps are required.<br>
+<br>
+<span style="font-weight: bold;">Network Access</span><br>
+<br>
+Your installation might not have network or Internet access without some tweaking. Do the following:<br>
+<ul>
+  <li>In the VirtualPC menu, select Edit-&gt;Settings. Within the
+settings, select Networking. Alter Adapter 1 to Shared Networking (NAT).</li>
+  <li>Within Ubuntu, click on network icon (looks like two overlayed terminals) in upper right corner. Select wired connection.</li>
+</ul>
+<span style="font-weight: bold;">Updating apt-get</span><br>
+
+<br>
+You will use the apt-get utility to retrieve source code and binaries
+necessary for this assignment. apt-get may require some configuration:<br>
+<ul>
+  <li>You may need to uncomment several lines in /etc/apt/sources.list.
+Uncomment all of the addresses except those in the "backports" section
+and those in the final section.</li>
+  <li>Run "sudo apt-get update" &nbsp;in a terminal.</li>
+</ul>
+In general, if apt-get is unable to retrieve an application that you
+need for this assignment, you might try uncommenting additional lines
+in the sources file and running update again.<br>
+<h3><span style="font-weight: bold;">
+B) Configure and Compile the Linux Kernel</span></h3>
+<span style="font-weight: bold;"><span style="font-weight: bold;"></span></span>Follow <a href="https://help.ubuntu.com/community/Kernel/Compile">this tutorial</a>
+for downloading, configuring, and compiling the Linux kernel. (Do this
+within the VirtualPC/Ubuntu installation you created in part A.) Use
+the "Alternate Build Method." Observe the following caveats:<br>
+<ul>
+  <li>In addition to libcurses5, also install libcurses5-dev</li>
+  <li>Prior to running "make menuconfig", run "make mrproper"</li>
+  <li>The remaining instructions assume you use&nbsp;menuconfig rather than xconfig</li>
+  <li>When running make-kpkg, we recommend against use of the --append-to-version option</li>
+</ul>
+During configuration, you will need to enable several modules related
+to networking.&nbsp;That is, in fact, why we are compiling the kernel;
+they are not enabled with the default distribution.<br>
+<ul>
+  <li>Set "General setup -&gt; local version" to an appropriate word or
+number. (This is simply so that you can distinguish your version of the
+kernel from others)</li>
+  <li>Enable "Networking -&gt; Networking options -&gt; Network testing -&gt; TCP Connection Probing" as a module</li>
+  <li>Enable "Networking -&gt; Networking options&nbsp;-&gt; QoS and/or fair queuing -&gt; Network Emulator" as a module</li>
+  <li>Enable "Networking -&gt; Networking options -&gt; TCP: advanced congestion control" as built-in</li>
+</ul>
+Within TCP: advanced congestion control, enable all options as modules, including cubic, as shown below:<br>
+<br>
+<span style="font-weight: bold;"><span style="font-weight: bold;"></span></span>
+<img src="tcpmods.PNG" alt="tcpmods.PNG"><br>
+<br>
+Resume the tutorial, and follow the instructions for building and
+installing the new kernel. After installing the kernel but prior to
+restarting, you should repeat the steps in the tutorial from part 1.A
+to fix your mouse configuration in /boot/grub/menu.lst. This time, fix
+both the generic kernel and the new kernel you just installed.<br>
+<br>
+Restart your system, and use grub to select your new kernel. (You may
+want to make a copy of your virtual Ubuntu installation before doing
+this.) Cross your fingers! If your kernel fails to boot, contact anyone
+but the author of this assignment.<br>
+<br>
+Assuming your kernel boots without error, you should install iperf, an
+application you will need shortly. You may also want gnuplot. As root
+(#), type:<br>
+<br>
+<div style="margin-left: 40px;"><span style="font-family: Courier New,Courier,monospace;"># apt-get install iperf</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;"># atp-get install gnuplot</span></div>
+
+<br>
+<h2><span style="font-weight: bold;">
+Part 2: TCP Performance Maximization</span></h2>
+Networks can be hostile environments. A variety of obstacles may face
+network traffic as it makes its way from source to destination,
+including physical limitations, competition from other network users,
+unpredictable routing, equipment failure, manipulation by service
+providers, and deliberate attempts at disruption from malicious users.
+A variety of techniques have been proposed and implemented to support
+the reliable transmission of data via unreliable networks. Of these TCP
+is perhaps the most prominent example. <br>
+<br>
+Unfortunately, no solution provides optimal performance under all
+network conditions. In this part of the assignment you will study the
+performance of different TCP configurations under a variety of network
+conditions. In particular, we will focus on the choice of <a href="http://en.wikipedia.org/wiki/TCP_Reno">congestion avoidance algorithm</a>
+(henceforth CA). These algorithms control the rate at which data is
+transmitted by altering important parameters of &nbsp;TCP, notably the <span style="font-style: italic;">congestion window</span> (cwnd) and the <span style="font-style: italic;">slow-start threshold </span>(ssthresh).
+This is done by approximating the characteristics of the network,
+chiefly by extrapolating from the reliability, speed, or order in which
+acknowledgment packets are received by the sender. However, exact
+network characteristics are impossible to determine using this limited
+information,&nbsp;forcing algorithm designers to make some assumptions.
+Accordingly, different algorithms are suited to different network
+conditions.<br>
+<br>
+Hopefully you have already downloaded and installed the tools necessary
+to complete this part of the assignment, as instructed in Part 1.B. We
+will be using iperf to generate TCP traffic with known characteristics,
+and to take high level measurements of effective bandwidth. Additional
+measurements will be recorded using the tcpprobe module. The netem
+module will be used in conjunction with tc to perform high-level
+network emulation. This will allow you to conduct your performance
+evaluation entirely on localhost. Finally Linux's /proc virtual file
+system will be used to alter TCP parameters, such as the choice of CA,
+as previously discussed. Basic usage of these tools is discussed below,
+and some samples are provided to get you started. Some of these
+examples require root permission, so it is assumed that you are either
+logged in as root or you are using sudo. Commands requiring root access
+are generally distinguished via the "#" prompt, versus the "&gt;"
+prompt for typical user access.<br>
+<br>
+This section of the assignment was heavily influenced by a good <a href="http://linuxgazette.net/135/pfeiffer.html">Linux Gazette article</a>
+by Rene Pfeiffer. It is highly recommended that you read it prior to
+tackling this section. The article links to other useful sites that are
+referenced as appropriate below.<br>
+<br>
+<span style="font-weight: bold;">Using iperf and tcpprobe</span><br>
+<br>
+You will need to invoke <a href="http://dast.nlanr.net/Projects/Iperf/">iperf</a>
+repeatedly via a script in order to conduct your performance
+evaluation, so you should become comfortable with its basic
+functionality. To start an iperf server using the default port of 5001,
+open a terminal, and type:<br>
+<br>
+<span style="font-family: Courier New,Courier,monospace;">&gt; iperf -s</span><br>
+<br>
+Then in a second terminal, type:<br>
+<br>
+<span style="font-family: Courier New,Courier,monospace;">&gt; iperf -t 10 -c localhost</span><br>
+<br>
+The command above tells iperf to transmit data to the receiver on
+localhost :5001 for 10 seconds. iperf will repeatedly send a
+default-sized buffer of data to the receiver at the fastest reliable
+rate allowed by TCP and network conditions. At the end of 10 seconds, a
+summary including average bandwidth achieved will be printed.
+&nbsp;Since you're transmitting from localhost to localhost, bandwidth
+should be pretty high! iperf includes a variety of options for
+controlling buffer size, port, reporting interval, etc. Check out the
+man page for more information:<br>
+<br>
+<span style="font-family: Courier New,Courier,monospace;">&gt; man iperf</span><br>
+<br>
+One important iperf parameter deserves an explanation: -M, controlling
+maximum segment size (mss), the amount of data that can be included in
+a single packet. Normally this is restricted by the physical layer used
+for transmission, at around 1460 bits for Ethernet, for example. Since
+our tests will be conducted entirely on localhost, you will need to
+artificially restrict the mss. It is therefore <span style="font-weight: bold;">essential</span> that you begin iperf commands used for final evaluation with:<br>
+<br>
+<span style="font-family: Courier New,Courier,monospace;">&gt; iperf -M 1500</span><br>
+<br>
+This will probably result in a warning indicating that a smaller mss
+was assigned; ignore this warning. You can confirm that an mss of close
+to 1500 bits is achieved during transmission by appending the -m
+option, which prints the mss.<br>
+<br>
+We can obtain more detailed information about TCP performance using
+tcpprobe. Prior to starting your performance evaluation, &nbsp;type:<br>
+<br>
+<span style="font-family: Courier New,Courier,monospace;"># modprobe tcp_probe port=5001</span><br>
+<br>
+You only need to do this once; the module will remain installed
+throughout your tests. tcpprobe reports (among other things) the cwnd
+and ssthresh values in effect for each packet transmitted on localhost.
+The rest of its functionality and implementation we'll leave as
+"magic".&nbsp;<br>
+<br>
+A good <a href="http://www.linux-foundation.org/en/Net:TCP_testing">overview</a>
+of TCP testing using these tools is available. It includes a link to
+some scripts that you might find useful.You may use these scripts if
+you like; just mention where they came from in your report. A more
+tailored variant of the main script intended for use with this
+assignment is linked to later on.<br>
+<br>
+<span style="font-weight: bold;">Using tc and netem</span><br>
+<br>
+The tc tool (short for traffic control) offers a variety of ways to
+control network transmissions emanating from each network device,
+including localhost. A full tutorial on tc is beyond the scope of this
+assignment, but additional information is available via<br>
+<br>
+<span style="font-family: Courier New,Courier,monospace;">&gt; man tc</span><br>
+<br>
+Chiefly we will be using the netem module, described <a href="http://www.linux-foundation.org/en/Net:Netem">here</a>.
+This tool allows us to model common adverse network conditions. It
+allows delays, such as those that occur when a client is communicating
+with a distant server, and random packet loss, which is especially
+common in wireless networks. It is possible to model fairly complex
+behavior via netem (at least insofar as the distributions of delays and
+packet loss are concerned), but we will be using the basics. Consider
+the following 3 example commands:<br>
+<br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">#&nbsp;tc qdisc add dev lo root netem delay 50ms</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">#&nbsp;tc qdisc show</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;">#&nbsp;tc qdisc del dev lo root netem</span><br>
+<br>
+Netem is a kind of tc "qdisc", or queuing discipline. The first command <span style="font-style: italic;">adds</span> to the <span style="font-style: italic;">device</span> <span style="font-style: italic;">"loopback"</span> (localhost) at the <span style="font-style: italic;">root</span> an instance of&nbsp; <span style="font-style: italic;">netem</span> that <span style="font-style: italic;">delays</span>
+transmissions by 50 ms. The second command should show you which qdiscs
+are installed for each device on your system, so that you can verify
+the first command worked. The final command <span style="font-style: italic;">deletes</span>
+the netem you installed in the first step. This is important, since you
+can only install one netem per device at a time, and you will need to
+alter the configuration to conduct your tests.<br>
+<br>
+tc allows for chaining of qdiscs, which enables some more complicated
+network configurations. In particular, we can add a tbf (token bucket
+filter) to enforce bandwidth limitations similar to those imposed by
+network administrators or Internet service providers. In our
+experience, the use of tbf is rather finicky.&nbsp;The example below
+combines netem and tbf to construct a "realistic" scenario for
+uploading data to a distant server via a cable modem restricted to 512
+Kbit/sec, with a small probability of random packet loss. You may copy
+the commands below verbatim for use in your tests:<br>
+<br>
+<span style="font-family: Courier New,Courier,monospace;"># tc qdisc add dev lo root handle 1: netem delay 100ms loss 0.1%</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;"># tc qdisc add dev lo parent 1: tbf rate 512kbit buffer 10k latency 10ms</span><br>
+<br>
+<span style="font-weight: bold;">Setting Congestion Avoidance and Other TCP Parameters via /proc and sysctl</span><br>
+<br>
+One of the more useful features of Linux is the <a href="http://en.wikipedia.org/wiki/Procfs">/proc virtual file system</a>.
+It allows users to read and (in some cases) modify parameters used by
+the kernel, including the choice of CA algo used by TCP. Although it is
+possible to read and write /proc files directly, we will do so using
+the sysctl command, which is a bit cleaner:<br>
+<br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;"># sysctl&nbsp;net.ipv4.tcp_congestion_control</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;"># sysctl -w net.ipv4.tcp_congestion_control=cubic</span><br>
+<br>
+The first command returns the current CA, which should be reno by
+default in the Linux configuration from part 1.B. The second command
+sets the CA to cubic, which is the default CA for the precompiled
+version of Ubuntu you installed initially. You should use the second
+command to switch between CAs during your tests.<br>
+<br>
+TCP is sensitive to a few other settings that we won't explain in
+detail. You should run the following commands prior to conducting your
+tests:<br>
+<br>
+<span style="font-family: Courier New,Courier,monospace;"># sysctl -w net.ipv4.tcp_no_metrics_save=1</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;"># sysctl -w net.ipv4.tcp_wmem=4096 16384 10000000</span><br style="font-family: Courier New,Courier,monospace;">
+<span style="font-family: Courier New,Courier,monospace;"># sysctl -w net.ipv4.tcp_rmem = 4096 87380 10000000</span><br>
+<br>
+The first command should disable caching of cwnd and ssthresh
+parameters between TCP connections, which could lead to early tests
+influencing the results of later tests. [NOTE: Unfortunately, this does
+not seem to work reliably. Don't worry too much if your results
+indicate caching.] The other commands increase the maximum size of the
+cwnd, as the default maximum is fairly conservative.<br>
+<br>
+<span style="font-weight: bold;">The Tests</span><br>
+<br>
+Finally, you're ready to conduct your TCP performance evaluation! We
+will restrict our evaluation to the reno, cubic, htcp and veno CAs.
+Evaluate each algorithm under the following simulated network
+conditions:<br>
+<ol>
+  <li>Default localhost (no artificial delay or loss)</li>
+  <li>Delay 50 ms</li>
+  <li>Delay 100 ms</li>
+  <li>Delay 200 ms</li>
+  <li>Delay 100 ms with 0.1% random packet loss</li>
+  <li>Delay 100 ms with&nbsp;1% random packet loss</li>
+  <li>Delay 100 ms with 10% random packet loss</li>
+  <li>"512 Kbit/sec Cablemodem" configuration (using tbf) given earlier</li>
+</ol>
+Use iperf to run each test for at least 60 seconds.&nbsp;Save the
+output from the sending side of iperf to a file. You should also use
+tcpprobe to collect data during each test. <a href="caTestTemplate.sh">This script</a>
+provides a template that includes capture of tcpprobe data, and runs
+each of the CAs in turn. You must fill in the sections marked TODO. In
+addition to this script, we recommend that you write a second "main"
+script that invokes tc to create the 8 test cases. This script should
+call your filled in version of the template script once for each test
+case.<br>
+<br>
+<span style="font-weight: bold;">What to Hand In</span><br>
+<br>
+Create a summary chart (or charts) that compares the effective
+bandwidth achieved by each algorithm for each test case. On the basis
+of this chart and your experience during experimentation, produce a
+report that answer the following questions:<br>
+<ol>
+  <li>Do the algorithms perform as expected given their design criteria?</li>
+  <li>Which algorithm(s) performed best in case (4)? In case (7)? Is this as expected?</li>
+  <li>The cubic algorithm recently replaced reno as the Linux default.
+Does it offer better performance? Is there any reason why the top
+performing algorithm in your tests might not be the best default
+choice? (Consider that many people run Linux on&nbsp;shared networks.)</li>
+  <li>In case 8, are any of the algorithms using&nbsp;the maximum allowed bandwidth? Comment on this.</li>
+  <li>Do any of the results surprise you? Do you think the results are accurate and repeatable?</li>
+</ol>
+You should also have a substantial amount of output from tcpprobe, but
+this may be more difficult to interpret. Choose two algorithms, and for
+each, plot the cwnd and ssthresh &nbsp;values for each test case as
+line charts. (Hint: one of the aforementioned links contains scripts
+that will help you do this using gnuplot.) For the two algorithms you
+choose, include one or two "interesting" charts in your report. Comment
+briefly on features of the chart, such as sections that exhibit cwnd
+growth behavior characteristic of each algorithm.<br>
+<br>
+Finally, you should hand in all scripts used in generating your results.<br>
+<br>
+<h2><span style="font-weight: bold;">Extra Credit Part 3: Outsmarting Reset-based Denial of Service Attacks</span></h2>
+This section of the assignment is in a preliminary stage, due to the
+time expenditure required to implement and document parts 1 and 2.
+However, the shell of this section seemed promising enough to merit
+inclusion.<br>
+<br>
+The vulnerability of TCP to RST-based spoofing attacks in IPv4 is well
+known, although recent events have once again brought these
+vulnerabilities to prominence. <a href="http://www.ietf.org/rfc/rfc4953.txt">Several&nbsp;solutions</a>
+have been proposed, many of them quite simple. This part of the
+assignment suggests partial implementation of one of these solutions.<br>
+<br>
+Initially I was hopeful that the current Linux TCP implementation would
+be entirely modular, such that handling of RST packets could be
+modified relatively easily and with minimal recompilation and
+restarting. Unfortunately this is not the case. However, the
+availability of raw sockets, which allow for user space construction
+and examination of packet headers for IP and TCP, makes a user space
+TCP implementation possible. Unfortunately, I was not able to find such
+an implementation either, except in an early stage of development.<br>
+<br>
+As an alternative, students could implement a "bare bones" user space
+TCP that offers safer handling of RST packets. Students should
+implement only the connecting side of TCP; the listening side would be
+provided by the instructor as a test driver. The student implementation
+should include<br>
+<ul>
+  <li>Basic 3-way TCP handshake: the client should transmit a SYN
+packet, receive and process the SYN-ACK response, and send the
+confirming ACK.</li>
+  <li>Implement the following "secure" variant of RST processing: the
+client should respond only to a RST packet containing the initial
+sequence number transmitted in the client's SYN packet. This makes a
+valid RST packet more difficult to spoof by guessing the correct
+sequence number, which can ordinarily fall within a large window.</li>
+  <li>The client should print a simple message to the console when receiving a "spoofed" RST packet</li>
+  <li>The client should extract and print to the console all packet
+"payloads", but no more elaborate processing (transmission of acks,
+ordering of packets by sequence number, etc.) is required</li>
+</ul>
+I believe that such an assignment would be finicky but probably less
+time consuming than that described in part 2. I doubt many students
+would use raw sockets subsequent to this assignment, but it would teach
+something about TCP/IP. I apologize for the preliminary state of this
+section, which does not have a corresponding solution.<br>
+
+</body>
+</html>
